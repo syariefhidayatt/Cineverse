@@ -10,6 +10,12 @@
 !.yarn/releases
 !.yarn/versions
 
+# log dan file sistem
+*.log
+.console-ninja/
+.vscode/
+.idea/
+
 # testing
 /coverage
 
@@ -23,6 +29,7 @@
 # misc
 .DS_Store
 *.pem
+Thumbs.db
 
 # debug
 npm-debug.log*
