@@ -23,6 +23,7 @@ export default async function MovieDetailPage({ params }) {
           <Image
             src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${movie.poster_path}`}
             alt={movie.title}
+            loading="eager"
             width={500}
             height={750}
             className="rounded-lg shadow-xl"
