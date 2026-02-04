@@ -15,6 +15,16 @@ async function getMovieDetail(id) {
   }
 }
 
+export async function generateMetadata({ params }) {
+  const { id } = await params
+  const movie = await getMovieDetail(id)
+
+  return {
+    title: `${movie.title} | CineVerse`,
+    description: movie.overview
+  }
+}
+
 export default async function MovieDetailPage({ params }) {
   const { id } = await params
   const movie = await getMovieDetail(id)
