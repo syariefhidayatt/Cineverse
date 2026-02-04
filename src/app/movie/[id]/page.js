@@ -2,10 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 
 async function getMovieDetail(id) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/movie/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-  );
-  return res.json()
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/movie/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+    );
+    if (!res.ok) {
+      throw new Error("Gagal mengambil data")
+    }
+    return res.json()
+  } catch (error) {
+    console.error("Terjadi kesalahan: ", error)
+  }
 }
 
 export default async function MovieDetailPage({ params }) {
@@ -19,20 +26,27 @@ export default async function MovieDetailPage({ params }) {
       </Link>
 
       <div className="flex flex-col md:flex-row gap-8 mt-4">
-        <div className="w-full md:w-1/3">
+        <div className="lg:w-auto ">
           <Image
             src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${movie.poster_path}`}
             alt={movie.title}
             loading="eager"
             width={500}
-            height={750}
+            height={500}
             className="rounded-lg shadow-xl"
           />
         </div>
 
-        <div className="w-full md:w-2/3">
+        <div className="w-full md:w-auto">
           <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
           <p className="text-gray-400 italic mb-4">{movie.tagline}</p>
+          <div className="flex gap-4">
+            {movie.genres.map((genre) => (
+              <span key={genre.id} className="flex-wrap bg-red-700 px-2 rounded py-1 mb-2 font-mono ">
+                {genre.name}
+              </span>
+            ))}
+          </div>
 
           <div className="flex gap-4 mb-6">
             <span className="bg-yellow-500 text-black px-3 py-1 rounded font-bold">

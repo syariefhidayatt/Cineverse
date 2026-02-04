@@ -1,22 +1,33 @@
 import SearchInput from "@/components/SearchInput";
 import MovieCard from "@/components/MovieCard";
+import Link from "next/link";
 
 async function getMovies() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
-  );
-  const data = await res.json()
-  return data.results;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
+    );
+    if (!res.ok) {
+      throw new Error("Gagal mengambil data")
+    }
+    const data = await res.json()
+    return data.results;
+  } catch (error) {
+    console.error("Terjadi kesalahan: ", error)
+  }
+  return []
 }
 export default async function Home() {
   const movies = await getMovies()
-
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">🎬 CineVerse</h1>
-
+      <nav className="flex flex-row gap-4 place-content-between ">
+        <h1 className="text-3xl font-bold mb-6 text-center">🎬 CineVerse</h1>
+        <div className="flex gap-4 font-bold ">
+          <Link href="/top-rated">Top Rated</Link>
+        </div>
+      </nav>
       <SearchInput />
-
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {movies.map((movie) => (
           movie.poster_path && (
@@ -26,5 +37,4 @@ export default async function Home() {
       </div>
     </div>
   );
-
 }

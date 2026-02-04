@@ -6,11 +6,9 @@ import { useRouter } from "next/navigation";
 export default function SearchInput() {
   const [keyword, setKeyword] = useState("");
   const router = useRouter();
-
   const handleSearch = (e) => {
     e.preventDefault();
     if (!keyword.trim()) return;
-
     router.push(`/search/${keyword}`);
   };
 

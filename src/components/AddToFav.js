@@ -5,8 +5,6 @@ export default function AddToFav({ movieId, title, posterPath }) {
     e.preventDefault()
     e.stopPropagation()
     const apiUrl = "/api/favorites";
-
-    console.log(movieId, title)
     try {
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -19,7 +17,6 @@ export default function AddToFav({ movieId, title, posterPath }) {
           posterPath: posterPath,
         }),
       });
-
       if (response.ok) {
         alert("Film berhasil disimpan");
       } else {
@@ -33,7 +30,7 @@ export default function AddToFav({ movieId, title, posterPath }) {
   return (
     <button
       onClick={handleSave}
-      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+      className="bg-rose-700 text-white px-4 py-2 rounded hover:bg-rose-800 transition"
     >
       Simpan ke favorite
     </button>
