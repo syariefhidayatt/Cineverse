@@ -24,7 +24,7 @@ export default async function TopRatedPage() {
       <nav className="flex flex-row gap-4 place-content-between ">
         <h1 className="text-2xl font-bold mb-4">Top Rated Movies</h1>
         <div className="flex gap-4 font-bold">
-          <Link href="/" className="mt-1">Home</Link>
+          <Link href="/" className="mb-4 p-2 hover:bg-rose-700 rounded">Home</Link>
         </div>
       </nav>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -1,29 +1,39 @@
 import SearchInput from "@/components/SearchInput";
 import MovieCard from "@/components/MovieCard";
 import Link from "next/link";
+import Pagination from "@/components/Pagination";
 
-async function getMovies() {
+async function getMovies(page = 1) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}`
     );
     if (!res.ok) {
       throw new Error("Gagal mengambil data")
     }
     const data = await res.json()
-    return data.results;
+    return {
+      movies: data.results,
+      totalPages: data.total_pages
+
+    }
   } catch (error) {
     console.error("Terjadi kesalahan: ", error)
   }
   return []
 }
-export default async function Home() {
-  const movies = await getMovies()
+export default async function Home({ searchParams }) {
+  const params = await searchParams;
+  const page = params?.page ? Number(params.page) : 1;
+  const { movies, totalPages } = await getMovies(page)
+
   return (
     <div className="container mx-auto p-4">
       <nav className="flex flex-row gap-4 place-content-between ">
-        <h1 className="text-3xl font-bold mb-6 text-center">🎬 CineVerse</h1>
-        <div className="flex gap-4 font-bold ">
+        <Link href="/">
+          <h1 className="text-3xl font-bold mt-1">🎬 CineVerse</h1>
+        </Link>
+        <div className="flex mb-5 p-2 gap-4 font-bold hover:bg-rose-700 rounded">
           <Link href="/top-rated">Top Rated</Link>
         </div>
       </nav>
@@ -35,6 +45,7 @@ export default async function Home() {
           )
         ))}
       </div>
+      <Pagination page={page} baseUrl="" totalPages={totalPages} />
     </div>
   );
 }
