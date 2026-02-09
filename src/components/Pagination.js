@@ -9,6 +9,10 @@ export default function Pagination({ page, baseUrl, totalPages }) {
   let startPage = currentPage - offset
   let endPage = currentPage + offset
 
+  if (totalPages <= 1) {
+    return null
+  }
+
   if (startPage < 1) {
     startPage = 1
   }

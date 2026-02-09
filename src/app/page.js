@@ -15,7 +15,6 @@ async function getMovies(page = 1) {
     return {
       movies: data.results,
       totalPages: data.total_pages
-
     }
   } catch (error) {
     console.error("Terjadi kesalahan: ", error)

@@ -1,26 +1,31 @@
 import MovieCard from "@/components/MovieCard";
-import Image from "next/image";
+import Pagination from "@/components/Pagination";
 import Link from "next/link";
 
-async function searchMovies(keyword) {
+async function searchMovies(keyword, page = 1) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${keyword}&language=en-US&page=1`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${keyword}&page=${page}`
     );
     if (!res.ok) {
       throw new Error("Gagal mengambil data")
     }
     const data = await res.json();
-    return data.results;
+    return {
+      movies: data.results,
+      totalPages: data.total_pages
+    }
   } catch (error) {
     console.error("Terjadi kesalahan: ", error)
   }
+  return []
 }
 
-export default async function SearchPage({ params }) {
-  const { keyword } = await params
+export default async function SearchPage({ params, searchParams }) {
+  const keyword = (await params).keyword
+  const page = (await searchParams).page || 1
   const decodedKeyword = decodeURIComponent(keyword)
-  const movies = await searchMovies(keyword)
+  const { movies, totalPages } = await searchMovies(keyword, page)
 
   return (
     <div className="container mx-auto p-4">
@@ -40,6 +45,7 @@ export default async function SearchPage({ params }) {
           )
         ))}
       </div>
+      <Pagination page={page} baseUrl={`/search/${keyword}`} totalPages={totalPages} />
     </div>
   );
 }
