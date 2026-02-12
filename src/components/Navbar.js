@@ -11,13 +11,13 @@ export default function Navbar() {
 
   return (
     <header className="bg-color-accent p-4 shadow-md sticky top-0 z-50">
-      <div className="flex justify-between items-center max-w-7xl mx-auto text-color-dark">
+      <div className="sm:flex justify-between items-center max-w-7xl mx-auto text-color-dark">
         <div className="flex items-center gap-4">
           <Link href="/" className="font-bold text-2xl hover:text-rose-700 transition">
             CineVerse 🎬
           </Link>
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center justify-end gap-6">
           <div className="flex gap-4 font-semibold">
             {pathname !== "/top-rated" && (
               <Link href="/top-rated" className="hover:text-rose-700 transition">
@@ -54,7 +54,7 @@ export default function Navbar() {
             ) : (
               <button
                 onClick={() => signIn()}
-                className="bg-indigo-700 text-white px-4 py-2 rounded text-sm hover:bg-indigo-800 transition cursor pointer"
+                className="bg-indigo-700 text-white px-4 py-2 rounded text-sm hover:bg-indigo-800 transition cursor-pointer"
               >
                 Sign In
               </button>
