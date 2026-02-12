@@ -52,7 +52,7 @@ export default function AddToFav({ movieId, title, posterPath, isAlreadyFavorite
     <button
       onClick={handleFavorite}
       className={`w-full py-2 rounded font-bold cursor-pointer transition ${isFavorited
-        ? "bg-rose-600 hover:bg-rose-700 text-white"
+        ? "bg-red-600 hover:bg-red-700 text-white"
         : "bg-blue-600 hover:bg-blue-700 text-white"
         }`}
     >
