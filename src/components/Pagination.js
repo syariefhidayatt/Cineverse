@@ -5,7 +5,6 @@ export default function Pagination({ page, baseUrl, totalPages }) {
   const maxPage = Math.min(totalPages, 500)
   const pageNumbers = []
   const offset = 2
-
   let startPage = currentPage - offset
   let endPage = currentPage + offset
 

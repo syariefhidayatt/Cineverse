@@ -30,7 +30,7 @@ export default async function SearchPage({ params, searchParams }) {
   return (
     <div className="container mx-auto p-4">
       <Link href="/" className="text-blue-400 hover:underline mb-4 inline-block">
-        &larr; Kembali ke Popular
+        &larr; Kembali ke Home
       </Link>
       <h1 className="text-2xl font-bold mb-6">
         Hasil Pencarian untuk: <span className="text-yellow-500">{decodedKeyword}</span>
@@ -45,6 +45,7 @@ export default async function SearchPage({ params, searchParams }) {
           )
         ))}
       </div>
+      
       <Pagination page={page} baseUrl={`/search/${keyword}`} totalPages={totalPages} />
     </div>
   );
