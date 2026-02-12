@@ -1,6 +1,6 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import MovieCard from "@/components/MovieCard";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,7 +15,7 @@ export default async function DashboardPage() {
   if (!session) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <h1 className="text-2xl font-bold">Silahkan login terlebih dahulu</h1>
+        <h1 className="text-2xl font-bold">Silakan login terlebih dahulu</h1>
       </div>
     )
   }
@@ -62,7 +62,7 @@ export default async function DashboardPage() {
               poster_path: fav.posterPath,
               vote_average: null,
             }
-            
+
             return (
               <div key={fav.id} className="relative">
                 <MovieCard movie={formattedMovie} isAlreadyFavorited={true} />

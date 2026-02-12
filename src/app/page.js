@@ -2,7 +2,7 @@ import MovieCard from "@/components/MovieCard";
 import Pagination from "@/components/Pagination";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import SearchInput from "@/components/SearchInput";
 
 async function getMovies(page = 1) {
@@ -35,7 +35,7 @@ export default async function Home({ searchParams }) {
 
   return (
     <div className="px-4 py-8 max-w-7xl mx-auto">
-      
+
       <SearchInput />
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {movies.map((movie) => {
@@ -51,7 +51,7 @@ export default async function Home({ searchParams }) {
           );
         })}
       </div>
-      
+
       <Pagination page={page} totalPages={totalPages} baseUrl="" />
     </div>
   );

@@ -54,7 +54,7 @@ export default function Navbar() {
             ) : (
               <button
                 onClick={() => signIn()}
-                className="bg-indigo-700 text-white px-4 py-2 rounded text-sm hover:bg-indigo-800 transition"
+                className="bg-indigo-700 text-white px-4 py-2 rounded text-sm hover:bg-indigo-800 transition cursor pointer"
               >
                 Sign In
               </button>
